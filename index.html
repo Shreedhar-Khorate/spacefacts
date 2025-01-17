@@ -6,36 +6,99 @@
     body {
       font-family: sans-serif;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      background-color: #222;
+      background-color: #000; 
       color: #eee;
     }
 
     #container {
-      background-color: #333;
+      background-color: #111; 
       padding: 30px;
       border-radius: 8px;
       text-align: center;
+      display: none; /* Initially hidden */
     }
 
     h1 {
-      color: #fff;
+      color: #0000ff; 
     }
 
     .fact {
       margin-bottom: 20px;
       padding: 15px;
-      background-color: #444;
+      background-color: #222; 
       border-radius: 5px;
+      color: #0000ff;
+    }
+    .fact:hover {
+      background-color: #333;
+      box-shadow: 0 0 90px #0000ff;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #333;
+      color: #0000ff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: yellow;
+    }
+
+    #welcome-message { 
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #2e0854;
+      z-index: 100; 
+      animation: fade-in 2s ease-in-out; 
+      transition: background-color 0.3s ease;
+    }
+
+    #welcome-message:hover {
+      background-color: #552583;
+    }
+
+    #message-content {
+      background-color: #111;
+      padding: 30px;
+      border-radius: 8px;
+      text-align: center;
+      color: #0000ff; 
+    }
+
+    @keyframes fade-in {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
     }
   </style>
 </head>
 <body>
+
+  <div id="welcome-message">
+    <div id="message-content">
+      <h2>Welcome to Amazing Space Facts!</h2>
+      <p>Get ready to explore the wonders of the universe.</p>
+      <button id="getStartedButton">Get Started</button>
+    </div>
+  </div>
+
   <div id="container">
     <h1>Amazing Space Facts</h1>
     <div id="facts"></div>
+    <button id="newFactsButton">Generate New Facts</button>
   </div>
 
   <script>
@@ -79,20 +142,82 @@
       {
         "fact": "You wouldn't be able to cry in space.",
         "description": "Your tears would clump together in balls and stick to your face."
+      },
+      {
+        "fact": "The Milky Way galaxy will collide with the Andromeda galaxy in about 4.5 billion years.",
+        "description": "This event is expected to form a new galaxy."
+      },
+      {
+        "fact": "A year on Mercury is just 88 days long.",
+        "description": "Mercury has the shortest orbit around the Sun."
+      },
+      {
+        "fact": "The Sun accounts for about 99.86% of the total mass of the Solar System.",
+        "description": "Its gravitational pull keeps the planets in orbit."
+      },
+      {
+        "fact": "There are more trees on Earth than stars in the Milky Way galaxy.",
+        "description": "There are about 3 trillion trees on Earth."
+      },
+      {
+        "fact": "Saturn's rings are made mostly of ice particles.",
+        "description": "They also contain rocky debris and dust."
+      },
+      {
+        "fact": "A full NASA space suit costs $12 million.",
+        "description": "The majority of that cost is for the backpack and control module."
+      },
+      {
+        "fact": "The largest volcano in the solar system is on Mars.",
+        "description": "Olympus Mons is about 13.6 miles high."
+      },
+      {
+        "fact": "The Moon is moving away from Earth at a rate of about 3.8 cm per year.",
+        "description": "This is due to tidal interactions."
+      },
+      {
+        "fact": "Venus has more volcanoes than any other planet in the solar system.",
+        "description": "It has over 1,600 major volcanoes."
+      },
+      {
+        "fact": "The first living creatures sent into space were fruit flies.",
+        "description": "They were sent aboard a U.S. V-2 rocket in 1947."
       }
     ];
 
+    let currentFactIndex = 0;
     const factsContainer = document.getElementById('facts');
+    const newFactsButton = document.getElementById('newFactsButton');
+    const getStartedButton = document.getElementById('getStartedButton');
+    const welcomeMessage = document.getElementById('welcome-message');
+    const container = document.getElementById('container');
 
-    facts.forEach(fact => {
-      const factElement = document.createElement('div');
-      factElement.classList.add('fact');
-      factElement.innerHTML = `
-        <h2>${fact.fact}</h2>
-        <p>${fact.description}</p>
-      `;
-      factsContainer.appendChild(factElement);
+    function displayFacts() {
+      factsContainer.innerHTML = ''; 
+      for (let i = currentFactIndex; i < currentFactIndex + 5 && i < facts.length; i++) {
+        const factElement = document.createElement('div');
+        factElement.classList.add('fact');
+        factElement.innerHTML = `
+          <h2>${facts[i].fact}</h2>
+          <p>${facts[i].description}</p>
+        `;
+        factsContainer.appendChild(factElement);
+      }
+      currentFactIndex += 5;
+      if (currentFactIndex >= facts.length) {
+        currentFactIndex = 0; // Reset index if we've shown all facts
+      }
+    }
+
+    newFactsButton.addEventListener('click', displayFacts);
+
+    getStartedButton.addEventListener('click', () => {
+      welcomeMessage.style.display = 'none'; // Hide the welcome message
+      container.style.display = 'block'; // Show the facts container
+      displayFacts(); // Display the initial set of facts
     });
+
   </script>
+
 </body>
 </html>
