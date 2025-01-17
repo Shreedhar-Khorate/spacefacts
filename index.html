@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Space Facts</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #222;
+      color: #eee;
+    }
+
+    #container {
+      background-color: #333;
+      padding: 30px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #fff;
+    }
+
+    .fact {
+      margin-bottom: 20px;
+      padding: 15px;
+      background-color: #444;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <h1>Amazing Space Facts</h1>
+    <div id="facts"></div>
+  </div>
+
+  <script>
+    const facts = [
+      {
+        "fact": "Space is completely silent.",
+        "description": "There is no air in space, so sound waves have no medium to travel through."
+      },
+      {
+        "fact": "The hottest planet in our solar system is Venus.",
+        "description": "Though Mercury is closer to the sun, Venus's dense atmosphere traps heat, making it hotter."
+      },
+      {
+        "fact": "A day on Venus is longer than a year on Venus.",
+        "description": "Venus rotates incredibly slowly, making its day longer than its orbit around the sun."
+      },
+      {
+        "fact": "There are more stars in the universe than grains of sand on all the beaches on Earth.",
+        "description": "This is a mind-boggling number!"
+      },
+      {
+        "fact": "Neutron stars are so dense that a teaspoon of their material would weigh billions of tons.",
+        "description": "They are formed from the collapsed core of a giant star."
+      },
+      {
+        "fact": "Footprints on the moon will stay there forever.",
+        "description": "There's no wind or rain on the moon to erode them."
+      },
+      {
+        "fact": "Sunset on Mars appears blue.",
+        "description": "This is due to the way dust in the Martian atmosphere scatters light."
+      },
+      {
+        "fact": "Jupiter's Great Red Spot is a storm that has been raging for over 400 years.",
+        "description": "It's so large, multiple Earths could fit inside it."
+      },
+      {
+        "fact": "The International Space Station is the largest man-made object in space.",
+        "description": "It orbits Earth every 90 minutes."
+      },
+      {
+        "fact": "You wouldn't be able to cry in space.",
+        "description": "Your tears would clump together in balls and stick to your face."
+      }
+    ];
+
+    const factsContainer = document.getElementById('facts');
+
+    facts.forEach(fact => {
+      const factElement = document.createElement('div');
+      factElement.classList.add('fact');
+      factElement.innerHTML = `
+        <h2>${fact.fact}</h2>
+        <p>${fact.description}</p>
+      `;
+      factsContainer.appendChild(factElement);
+    });
+  </script>
+</body>
+</html>
